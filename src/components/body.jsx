@@ -8,10 +8,16 @@ export default function Body() {
         setQuery(e.target.value)
     }
 
+    function searchBarKeyPress (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
+    }
+
     return <div className="body">
         <div className="search-bar-container">
             <div className="magnifying-glass-icon" />
-            <textarea className="search-bar" value={query} onChange={updateQuery}></textarea>
+            <textarea className="search-bar" value={query} placeholder={'Search...'} onChange={updateQuery} onKeyPress={searchBarKeyPress} ></textarea>
         </div>
     </div>
 }
