@@ -1,8 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import './body.css';
 
-const d = new Date();
-
 export default function Body({CurrentWindow, setCurrentWindow, searchEngine, selectSearchBar, viewTime, viewKeyPress, searchBarHightlight}) {
     const [query, setQuery] = useState('');
     const [lastQuery, setlastQuery] = useState('');
@@ -10,9 +8,12 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, sel
     const [time, setTime] = useState({});
     const [keyPressStyle, setKeyPressStyle] = useState({});
 
-    const textAreaRef = useRef()
+    const textAreaRef = useRef();
+    const [timeText, setTimeText] = useState();
 
     useEffect(() => {
+        let d = new Date();
+
         let newTime = {
             hour: d.getHours(),
             minute: d.getMinutes(),
@@ -25,6 +26,13 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, sel
         } else {
             newTime.timeSufix = 'AM';
         }
+
+        if (newTime.minute.length < 2) {
+            console.log(newTime.minute);
+            newTime.minute = `0${newTime.minute}`;
+        }
+
+        setTimeText(time.hour+':'+time.minute+time.timeSufix);
             
         if (viewTime === 'on') {
             setTimeTextStyle({display: 'block'});
@@ -35,7 +43,7 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, sel
         }
 
         setTime(newTime);
-    }, [CurrentWindow, viewTime, d, viewKeyPress]);
+    }, [CurrentWindow, viewTime, viewKeyPress]);
 
     useEffect(() => {
         if(textAreaRef != null && selectSearchBar === 'on') textAreaRef.current.select();
@@ -81,7 +89,7 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, sel
             <p className="welcome-message-text" >Hello [name], welcome!</p>
         </div>
         <div className="time" style={timeTextStyle} >
-            <h1 className="time-text" >{time.hour}:{time.minute}{time.timeSufix}</h1>
+            <h1 className="time-text" >{timeText}</h1>
         </div>
         <div className="search-bar-container" >
             <div className="magnifying-glass-icon" onClick={search} />
