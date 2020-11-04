@@ -1,11 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import './settings.css';
 
-export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine, setSearchEngine, darkMode, setDarkMode, selectSearchBar, setSelectSearchBar, viewTime, setViewTime, viewKeyPress, setViewKeyPress, searchBarHightlight, setSearchBarHightlight, name, setName, viewWelcomeMessage, setViewWelcomeMessage}) {
+export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine, setSearchEngine, darkMode, setDarkMode, selectSearchBar, setSelectSearchBar, viewTime, setViewTime, viewKeyPress, setViewKeyPress, searchBarHightlight, setSearchBarHightlight, name, setName, viewWelcomeMessage, setViewWelcomeMessage, backgroundImage, setBackgroundImage}) {
     //button styles
     const [darkmodeOffStyle, setDarkmodeOffStyle] = useState();
     const [darkmodeOnStyle, setDarkmodeOnStyle] = useState();
     const [nameValue, setNameValue] = useState(name);
+    const [backgroundImageValue, setBackgroundImageValue] = useState(backgroundImage);
+    const [settingsBackgroundImage, setSettingsBackgroundImage] = useState();
+    const [settingsBackgroundImageStyle, setSettingsBackgroundImageStyle] = useState();
 
     const [googleStyle, setGoogleStyle] = useState();
     const [bingStyle, setBingStyle] = useState();
@@ -51,7 +54,21 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
         }else {
             setYahooStyle({background: '#F2F2F2', border: '2px solid #dadce0'});
         }
-    }, [searchEngine]);
+
+        if (darkMode === 'on') {
+            setSettingsBackgroundImageStyle({filter: 'invert() brightness(100%)'});
+            console.log(settingsBackgroundImageStyle);
+        }else {
+            setSettingsBackgroundImageStyle({filter: 'brightness(100%)'});
+            console.log(settingsBackgroundImageStyle);
+        }
+
+        if (backgroundImage === 'off') {
+            setSettingsBackgroundImage(<p></p>);
+        }else {
+            setSettingsBackgroundImage(<img className="settings-background-image-preview" draggable="false" style={settingsBackgroundImageStyle} src={backgroundImage} />); 
+        }
+    }, [searchEngine, backgroundImage, darkMode]);
 
     function setSearchEngineGoogle () {
         setSearchEngine('Google');
@@ -163,6 +180,12 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
         setNameValue(e.target.value);
     }
 
+    function disableEnter (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
+    }
+
     useEffect(()=>{
         setName(nameValue);
     }, [nameValue]);
@@ -185,6 +208,18 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
         setViewWelcomeMessage('on');
     }
 
+    function setBackgroundImageValueValue (e) {
+        setBackgroundImage(e.target.value);
+    }
+
+    function turnBackgroundImageOff () {
+        setBackgroundImage('off');
+    }
+
+    useEffect(()=>{
+        setBackgroundImage(backgroundImageValue);
+    }, [backgroundImageValue]);
+
     return <div className="settings" >
         <h1 className="settings-title" >SETTINGS</h1>
 
@@ -192,7 +227,7 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
 
         <div className="settings-name">
             <p>Your Name is:</p>
-            <textarea value={nameValue} onChange={setNameValueValue} className="settings-name-textarea" >{name}</textarea>
+            <textarea value={nameValue} onKeyPress={disableEnter} onChange={setNameValueValue} className="settings-name-textarea" >{name}</textarea>
         </div>
 
         <div className="settings-break"></div>
@@ -227,6 +262,17 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
                 <button className="darkmode-buttons" style={darkmodeOffStyle} onClick={turnDarkmodeOff} >Turn Off</button>
                 <button className="darkmode-buttons" style={darkmodeOnStyle} onClick={turnDarkmodeOn} >Turn On</button>
             </div>
+        </div>
+
+        <div className="settings-break"></div>
+
+        <div className="settings-background-image">
+            <p>Background Image is:</p>
+            <div className="settings-background-image-buttons-container">
+                <button onClick={turnBackgroundImageOff} >Turn Off</button>
+                <textarea value={backgroundImage} onChange={setBackgroundImageValueValue} onKeyPress={disableEnter} className="settings-name-textarea" >{backgroundImage}</textarea>
+            </div>
+            {settingsBackgroundImage}
         </div>
 
         <div className="settings-break"></div>

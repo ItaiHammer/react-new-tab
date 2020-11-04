@@ -3,7 +3,7 @@ import './body.css';
 
 let d = new Date();
 
-export default function Body({CurrentWindow, setCurrentWindow, searchEngine, selectSearchBar, viewTime, viewKeyPress, searchBarHightlight, name, viewWelcomeMessage}) {
+export default function Body({CurrentWindow, setCurrentWindow, searchEngine, selectSearchBar, viewTime, viewKeyPress, searchBarHightlight, name, viewWelcomeMessage, backgroundImage}) {
     const [query, setQuery] = useState('');
     const [lastQuery, setlastQuery] = useState('');
     const [timeTextStyle, setTimeTextStyle] = useState({});
@@ -14,6 +14,7 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, sel
     const textAreaRef = useRef();
     const [timeText, setTimeText] = useState();
     let timeBlur = false;
+    const [bodyStyle, setBodyStyle] = useState();
 
     useEffect(() => {
         let newTime = {
@@ -48,8 +49,16 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, sel
             setViewWelcomeMessageStyle({display: 'flex'});
         }
 
+        console.log(backgroundImage);
+
+        if (backgroundImage === 'off') {
+            setBodyStyle();
+        }else {
+            setBodyStyle({background: 'rgba(0, 0, 0, 0)'});
+        }
+
         setTime(newTime);
-    }, [CurrentWindow, viewTime, d, viewKeyPress]);
+    }, [CurrentWindow, viewTime, d, viewKeyPress, backgroundImage]);
 
     useEffect(() => {
         if(textAreaRef != null && selectSearchBar === 'on') textAreaRef.current.select();
@@ -95,7 +104,7 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, sel
         }
     }
 
-    return <div className="body" >
+    return <div className="body" style={bodyStyle} >
         <div className="welcome-message" style={viewWelcomeMessageStyle} >
             <p className="welcome-message-text" >Hello {name}, welcome!</p>
         </div>
