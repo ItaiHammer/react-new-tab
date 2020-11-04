@@ -10,6 +10,7 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, sel
 
     const textAreaRef = useRef();
     const [timeText, setTimeText] = useState();
+    let timeBlur = false;
 
     useEffect(() => {
         let d = new Date();
@@ -78,8 +79,13 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, sel
         }
     }
 
+    function setTimeBlur () {
+        timeBlur = true;
+    }
+
     function highlightSearchBar (e) {
-        if (searchBarHightlight === 'on') {
+        if (searchBarHightlight === 'on' && timeBlur === true) {
+            timeBlur = false;
             e.target.select();
         }
     }
@@ -93,7 +99,7 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, sel
         </div>
         <div className="search-bar-container" >
             <div className="magnifying-glass-icon" onClick={search} />
-            <textarea className="search-bar" ref={textAreaRef} value={query} placeholder={'Search...'} onChange={updateQuery} onKeyPress={searchBarKeyPress} onClick={highlightSearchBar} ></textarea>
+            <textarea className="search-bar" ref={textAreaRef} value={query} placeholder={'Search...'} onChange={updateQuery} onKeyPress={searchBarKeyPress} onClick={highlightSearchBar} onBlur={setTimeBlur} ></textarea>
         </div>
         <div className="current-key" style={keyPressStyle} >
             <p className="current-key-text" >You pressed the "{lastQuery}" key</p>
