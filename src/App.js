@@ -19,6 +19,7 @@ function App() {
   const [backgroundImage, setBackgroundImage] = useState();
   const [bodyStyle, setBodyStyle] = useState({});
   const [shadows, setShadows] = useState({});
+  const [centerPicture, setCenterPicture] = useState({});
   const [backgroundImageStyle, setBackgroundImageStyle] = useState({});
 
   useEffect(() => {
@@ -52,6 +53,9 @@ function App() {
     if (localStorage.getItem('shadows') == null || localStorage.getItem('shadows') === '') {
       localStorage.setItem('shadows', "off");
     }
+    if (localStorage.getItem('centerPicture') == null || localStorage.getItem('centerPicture') === '') {
+      localStorage.setItem('centerPicture', "off");
+    }
 
     setSearchEngine(localStorage.getItem('searchEngine'));
     setDarkMode(localStorage.getItem('darkMode'));
@@ -63,6 +67,7 @@ function App() {
     setViewWelcomeMessage(localStorage.getItem('viewWelcomeMessage'));
     setBackgroundImage(localStorage.getItem('backgroundImage'));
     setShadows(localStorage.getItem('shadows'));
+    setCenterPicture(localStorage.getItem('centerPicture'));
   }, [])
 
   useEffect(() => {
@@ -113,8 +118,12 @@ function App() {
     localStorage.setItem('shadows', shadows);
   }, [shadows]);
 
-  const page = CurrentWindow === 'body' ? <Body CurrentWindow={CurrentWindow} setCurrentWindow={setCurrentWindow} searchEngine={searchEngine} darkMode={darkMode} selectSearchBar={selectSearchBar} viewTime={viewTime} viewKeyPress={viewKeyPress} searchBarHightlight={searchBarHightlight} name={name} viewWelcomeMessage={viewWelcomeMessage} backgroundImage={backgroundImage} shadows={shadows} />
-    : CurrentWindow === 'settings' ? <Settings CurrentWindow={CurrentWindow} setCurrentWindow={setCurrentWindow} searchEngine={searchEngine} setSearchEngine={setSearchEngine} darkMode={darkMode} setDarkMode={setDarkMode} selectSearchBar={selectSearchBar} setSelectSearchBar={setSelectSearchBar} viewTime={viewTime} setViewTime={setViewTime} viewKeyPress={viewKeyPress} setViewKeyPress={setViewKeyPress} searchBarHightlight={searchBarHightlight} setSearchBarHightlight={setSearchBarHightlight} name={name} setName={setName} viewWelcomeMessage={viewWelcomeMessage} setViewWelcomeMessage={setViewWelcomeMessage} backgroundImage={backgroundImage} setBackgroundImage={setBackgroundImage} shadows={shadows} setShadows={setShadows} />
+  useEffect(() => {
+    localStorage.setItem('centerPicture', centerPicture);
+  }, [centerPicture]);
+
+  const page = CurrentWindow === 'body' ? <Body CurrentWindow={CurrentWindow} setCurrentWindow={setCurrentWindow} searchEngine={searchEngine} darkMode={darkMode} selectSearchBar={selectSearchBar} viewTime={viewTime} viewKeyPress={viewKeyPress} searchBarHightlight={searchBarHightlight} name={name} viewWelcomeMessage={viewWelcomeMessage} backgroundImage={backgroundImage} shadows={shadows} centerPicture={centerPicture} />
+    : CurrentWindow === 'settings' ? <Settings CurrentWindow={CurrentWindow} setCurrentWindow={setCurrentWindow} searchEngine={searchEngine} setSearchEngine={setSearchEngine} darkMode={darkMode} setDarkMode={setDarkMode} selectSearchBar={selectSearchBar} setSelectSearchBar={setSelectSearchBar} viewTime={viewTime} setViewTime={setViewTime} viewKeyPress={viewKeyPress} setViewKeyPress={setViewKeyPress} searchBarHightlight={searchBarHightlight} setSearchBarHightlight={setSearchBarHightlight} name={name} setName={setName} viewWelcomeMessage={viewWelcomeMessage} setViewWelcomeMessage={setViewWelcomeMessage} backgroundImage={backgroundImage} setBackgroundImage={setBackgroundImage} shadows={shadows} setShadows={setShadows} centerPicture={centerPicture} setCenterPicture={setCenterPicture} />
       : ''
 
   return (

@@ -3,7 +3,7 @@ import './body.css';
 
 let d = new Date();
 
-export default function Body({CurrentWindow, setCurrentWindow, searchEngine, darkMode, selectSearchBar, viewTime, viewKeyPress, searchBarHightlight, name, viewWelcomeMessage, backgroundImage, shadows}) {
+export default function Body({CurrentWindow, setCurrentWindow, searchEngine, darkMode, selectSearchBar, viewTime, viewKeyPress, searchBarHightlight, name, viewWelcomeMessage, backgroundImage, shadows, centerPicture}) {
     const [query, setQuery] = useState('');
     const [lastQuery, setlastQuery] = useState('');
     const [timeTextStyle, setTimeTextStyle] = useState({});
@@ -16,6 +16,7 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, dar
     const [timeText, setTimeText] = useState();
     let timeBlur = false;
     const [bodyStyle, setBodyStyle] = useState();
+    const [centerPictureStyle, setCenterPictureStyle] = useState({});
 
     useEffect(() => {
         let newTime = {
@@ -65,8 +66,22 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, dar
             setTextShadows({textShadow: '0 0 20px rgba(255, 255, 255, 0.0)'});
         }
 
+        if (centerPicture === 'off') {
+            if (darkMode === 'on') {
+                setCenterPictureStyle({filter: 'invert()'});
+            }else {
+                setCenterPictureStyle();
+            }
+        }else {
+            if (darkMode === 'on') {
+                setCenterPictureStyle({display: 'block', filter: 'invert()'});
+            }else {
+                setCenterPictureStyle({display: 'block'});
+            }
+        }
+
         setTime(newTime);
-    }, [CurrentWindow, viewTime, d, viewKeyPress, backgroundImage, shadows, darkMode]);
+    }, [CurrentWindow, d, viewKeyPress, backgroundImage, shadows, darkMode]);
 
     useEffect(() => {
         if(textAreaRef != null && selectSearchBar === 'on') textAreaRef.current.select();
@@ -115,6 +130,9 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, dar
     return <div className="body" style={bodyStyle} >
         <div className="welcome-message" style={viewWelcomeMessageStyle} >
             <p className="welcome-message-text" style={textShadows} >Hello {name}, welcome!</p>
+        </div>
+        <div className="center-picture" style={centerPictureStyle} >
+            <img src={centerPicture} className="time-img-style" draggable="false" />
         </div>
         <div className="time" style={timeTextStyle} >
             <h1 className="time-text" style={textShadows} >{time.hour}:{time.minute}{time.timeSufix}</h1>

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './settings.css';
 
-export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine, setSearchEngine, darkMode, setDarkMode, selectSearchBar, setSelectSearchBar, viewTime, setViewTime, viewKeyPress, setViewKeyPress, searchBarHightlight, setSearchBarHightlight, name, setName, viewWelcomeMessage, setViewWelcomeMessage, backgroundImage, setBackgroundImage, shadows, setShadows}) {
+export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine, setSearchEngine, darkMode, setDarkMode, selectSearchBar, setSelectSearchBar, viewTime, setViewTime, viewKeyPress, setViewKeyPress, searchBarHightlight, setSearchBarHightlight, name, setName, viewWelcomeMessage, setViewWelcomeMessage, backgroundImage, setBackgroundImage, shadows, setShadows, centerPicture, setCenterPicture}) {
     //button styles
     const [darkmodeOffStyle, setDarkmodeOffStyle] = useState();
     const [darkmodeOnStyle, setDarkmodeOnStyle] = useState();
@@ -11,6 +11,8 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
     const [settingsBackgroundImageStyle, setSettingsBackgroundImageStyle] = useState();
     const [settingsShadowsOffStyle, setSettingsShadowsOffStyle] = useState();
     const [settingsShadowsOnStyle, setSettingsShadowsOnStyle] = useState();
+
+    const [blur, setBlur] = useState();
 
     const [googleStyle, setGoogleStyle] = useState();
     const [bingStyle, setBingStyle] = useState();
@@ -31,6 +33,10 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
 
     const [viewWelcomeMessageOffStyle, setViewWelcomeMessageOffStyle] = useState();
     const [viewWelcomeMessageOnStyle, setViewWelcomeMessageOnStyle] = useState();
+
+    const [centerPictureValue, setcenterPictureValue] = useState(centerPicture);
+    const [settingsCenterPicture, setSettingsCenterPicture] = useState();
+    const [settingsCenterPictureStyle, setSettingsCenterPictureStyle] = useState();
 
     useEffect(()=>{
         if (searchEngine === 'Google') {
@@ -59,10 +65,8 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
 
         if (darkMode === 'on') {
             setSettingsBackgroundImageStyle({filter: 'invert() brightness(100%)'});
-            console.log(settingsBackgroundImageStyle);
         }else {
             setSettingsBackgroundImageStyle({filter: 'brightness(100%)'});
-            console.log(settingsBackgroundImageStyle);
         }
 
         if (backgroundImage === 'off') {
@@ -70,7 +74,20 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
         }else {
             setSettingsBackgroundImage(<img className="settings-background-image-preview" draggable="false" style={settingsBackgroundImageStyle} src={backgroundImage} />); 
         }
-    }, [searchEngine, backgroundImage, darkMode]);
+
+        if (darkMode === 'on') {
+            setSettingsCenterPictureStyle({filter: 'invert() brightness(100%)'});
+        }else {
+            setSettingsCenterPictureStyle({filter: 'brightness(100%)'});
+        }
+
+        if (centerPicture === 'off') {
+            setSettingsCenterPicture(<p></p>);
+        }else {
+            setSettingsCenterPicture(<img className="settings-background-image-preview" draggable="false" style={settingsBackgroundImageStyle} src={centerPicture} />); 
+        }
+
+    }, [searchEngine, backgroundImage, centerPicture, darkMode]);
 
     function setSearchEngineGoogle () {
         setSearchEngine('Google');
@@ -136,9 +153,11 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
         if (viewTime === 'on') {
             setViewTimeOnStyle({background: '#dadce0'});
             setViewTimeOffStyle({background: '#F2F2F2', border: '2px solid #dadce0'});
-        }else {
+
+       }else {
             setViewTimeOnStyle({background: '#F2F2F2', border: '2px solid #dadce0'});
             setViewTimeOffStyle({background: '#dadce0'});
+        
         }
     }, [viewTime]);
 
@@ -230,6 +249,10 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
         setShadows('on');
     }
 
+    function turnCenterPictureOff () {
+        setCenterPicture('off');
+    }
+
     useEffect(()=>{
         if (shadows === 'on') {
             setSettingsShadowsOnStyle({background: '#dadce0'});
@@ -239,6 +262,25 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
             setSettingsShadowsOffStyle({background: '#dadce0'});
         }
     }, [shadows]);
+
+    function setCenterPictureValue (e) {
+        setcenterPictureValue(e.target.value);
+    }
+
+    useEffect(()=>{
+        setCenterPicture(centerPictureValue);
+    }, [centerPictureValue]);
+
+    function setBlurFunction () {
+        setBlur(true);
+    }
+
+    function highlightSearchBar (e) {
+        if (searchBarHightlight === 'on' && blur === true) {
+            setBlur(false);
+            e.target.select();
+        }
+    }
 
     return <div className="settings" >
         <h1 className="settings-title" >SETTINGS</h1>
@@ -290,7 +332,7 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
             <p>Background Image is:</p>
             <div className="settings-background-image-buttons-container">
                 <button onClick={turnBackgroundImageOff} >Turn Off</button>
-                <textarea value={backgroundImage} onChange={setBackgroundImageValueValue} onKeyPress={disableEnter} className="settings-name-textarea" >{backgroundImage}</textarea>
+                <textarea value={backgroundImage} onChange={setBackgroundImageValueValue} placeholder="Link to Picture" onKeyPress={disableEnter} onBlur={setBlurFunction} onClick={highlightSearchBar} className="settings-name-textarea" >{backgroundImage}</textarea>
             </div>
             {settingsBackgroundImage}
         </div>
@@ -307,11 +349,22 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
 
         <div className="settings-break"></div>
 
+        <div className="settings-background-image">
+            <p>Center Picture is:</p>
+            <div className="settings-background-image-buttons-container">
+                <button onClick={turnCenterPictureOff} >Turn Off</button>
+                <textarea value={centerPicture} onChange={setCenterPictureValue} placeholder="Link to Picture" onKeyPress={disableEnter} onBlur={setBlurFunction} onClick={highlightSearchBar} className="settings-name-textarea" >{centerPicture}</textarea>
+            </div>
+            {settingsCenterPicture}
+        </div>
+
+        <div className="settings-break"></div>
+
         <div className="darkmode">
             <p>View Time is {viewTime}</p>
             <div className="darkmode-buttons-container">
                 <button className="darkmode-buttons" style={viewTimeOffStyle} onClick={turnViewTimeOff} >Turn Off</button>
-                <button className="darkmode-buttons" style={viewTimeOnStyle} onClick={turnViewTimeOn} >Turn On</button>
+                <button className="darkmode-buttons" style={viewTimeOnStyle} onClick={turnViewTimeOn} >Time</button>
             </div>
         </div>
 

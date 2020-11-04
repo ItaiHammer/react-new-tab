@@ -96,3 +96,15 @@
     position: absolute;
     bottom: 10px;
 }
+
+.center-picture {
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.time-img-style {
+    height: 150px;
+    border-radius: 10px;
+}
