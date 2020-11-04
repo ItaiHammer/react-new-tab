@@ -82,3 +82,12 @@
 .search-bar::-webkit-scrollbar {
     display: none;
 }
+
+.bottom-watermark {
+    color: #70757a;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: arial;
+    position: absolute;
+    bottom: 10px;
+}

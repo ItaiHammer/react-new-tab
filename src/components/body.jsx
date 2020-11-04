@@ -104,5 +104,7 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, sel
         <div className="current-key" style={keyPressStyle} >
             <p className="current-key-text" >You pressed the "{lastQuery}" key</p>
         </div>
+
+        <p className="bottom-watermark" >Using {searchEngine}</p>
     </div>
 }
