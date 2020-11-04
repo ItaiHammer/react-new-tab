@@ -1,0 +1,114 @@
+.settings {
+    background: #fff;
+    width: 100vw;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+p {
+    color: #70757a;
+}
+
+button {
+    background: #f2f2f2;
+    width: 80px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    color: #70757a;
+    outline: none;
+    border-radius: 10px;
+    border: 2px solid #dadce0;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.settings-title {
+    color: #70757a;
+    font-size: 40px;
+    font-weight: 500;
+    font-family: arial;
+    margin-top: 150px;
+}
+
+.darkmode {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 10px;
+}
+
+.darkmode-buttons-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 10px;
+}
+
+.darkmode-buttons {
+    background: #f2f2f2;
+    width: 80px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    color: #70757a;
+    outline: none;
+    border: 2px solid #dadce0;
+}
+
+.settings-break {
+    background: #dadce0;
+    width: 300px;
+    height: 3px;
+    border-radius: 10px;
+}
+
+.search-engines {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 10px;
+}
+
+.search-engines-buttons-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    border-radius: 10px;
+}
+
+.search-engines-buttons {
+    background: #f2f2f2;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    color: #70757a;
+    border: 2px solid #dadce0;
+}
