@@ -3,12 +3,13 @@ import './body.css';
 
 let d = new Date();
 
-export default function Body({CurrentWindow, setCurrentWindow, searchEngine, selectSearchBar, viewTime, viewKeyPress, searchBarHightlight}) {
+export default function Body({CurrentWindow, setCurrentWindow, searchEngine, selectSearchBar, viewTime, viewKeyPress, searchBarHightlight, name, viewWelcomeMessage}) {
     const [query, setQuery] = useState('');
     const [lastQuery, setlastQuery] = useState('');
     const [timeTextStyle, setTimeTextStyle] = useState({});
     const [time, setTime] = useState({});
     const [keyPressStyle, setKeyPressStyle] = useState({});
+    const [viewWelcomeMessageStyle, setViewWelcomeMessageStyle] = useState({});
 
     const textAreaRef = useRef();
     const [timeText, setTimeText] = useState();
@@ -41,6 +42,10 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, sel
 
         if (viewKeyPress === 'on') {
             setKeyPressStyle({display: 'block'});
+        }
+
+        if (viewWelcomeMessage === 'on') {
+            setViewWelcomeMessageStyle({display: 'flex'});
         }
 
         setTime(newTime);
@@ -91,8 +96,8 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, sel
     }
 
     return <div className="body" >
-        <div className="welcome-message">
-            <p className="welcome-message-text" >Hello [name], welcome!</p>
+        <div className="welcome-message" style={viewWelcomeMessageStyle} >
+            <p className="welcome-message-text" >Hello {name}, welcome!</p>
         </div>
         <div className="time" style={timeTextStyle} >
             <h1 className="time-text" >{time.hour}:{time.minute}{time.timeSufix}</h1>

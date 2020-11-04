@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import './settings.css';
 
-export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine, setSearchEngine, darkMode, setDarkMode, selectSearchBar, setSelectSearchBar, viewTime, setViewTime, viewKeyPress, setViewKeyPress, searchBarHightlight, setSearchBarHightlight}) {
+export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine, setSearchEngine, darkMode, setDarkMode, selectSearchBar, setSelectSearchBar, viewTime, setViewTime, viewKeyPress, setViewKeyPress, searchBarHightlight, setSearchBarHightlight, name, setName, viewWelcomeMessage, setViewWelcomeMessage}) {
     //button styles
     const [darkmodeOffStyle, setDarkmodeOffStyle] = useState();
     const [darkmodeOnStyle, setDarkmodeOnStyle] = useState();
+    const [nameValue, setNameValue] = useState(name);
 
     const [googleStyle, setGoogleStyle] = useState();
     const [bingStyle, setBingStyle] = useState();
@@ -22,6 +23,9 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
 
     const [searchBarHighlightOffStyle, setSearchBarHighlightOffStyle] = useState();
     const [searchBarHighlightOnStyle, setSearchBarHighlightOnStyle] = useState();
+
+    const [viewWelcomeMessageOffStyle, setViewWelcomeMessageOffStyle] = useState();
+    const [viewWelcomeMessageOnStyle, setViewWelcomeMessageOnStyle] = useState();
 
     useEffect(()=>{
         if (searchEngine === 'Google') {
@@ -155,17 +159,43 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
         }
     }, [viewKeyPress]);
 
+    function setNameValueValue (e) {
+        setNameValue(e.target.value);
+    }
+
+    useEffect(()=>{
+        setName(nameValue);
+    }, [nameValue]);
+
+    useEffect(()=>{
+        if (viewWelcomeMessage === 'on') {
+            setViewWelcomeMessageOnStyle({background: '#dadce0'});
+            setViewWelcomeMessageOffStyle({background: '#F2F2F2', border: '2px solid #dadce0'});
+        }else {
+            setViewWelcomeMessageOnStyle({background: '#F2F2F2', border: '2px solid #dadce0'});
+            setViewWelcomeMessageOffStyle({background: '#dadce0'});
+        }
+    }, [viewWelcomeMessage]);
+
+    function turnViewWelcomeMessageOff () {
+        setViewWelcomeMessage('off');
+    }
+
+    function turnViewWelcomeMessageOn () {
+        setViewWelcomeMessage('on');
+    }
+
     return <div className="settings" >
         <h1 className="settings-title" >SETTINGS</h1>
-        <div className="darkmode">
-            <p>Darkmode is {darkMode}</p>
-            <div className="darkmode-buttons-container">
-                <button className="darkmode-buttons" style={darkmodeOffStyle} onClick={turnDarkmodeOff} >Turn Off</button>
-                <button className="darkmode-buttons" style={darkmodeOnStyle} onClick={turnDarkmodeOn} >Turn On</button>
-            </div>
+
+        <p className="settings-section-text" >-INFO-</p>
+
+        <div className="settings-name">
+            <p>Your Name is:</p>
+            <textarea value={nameValue} onChange={setNameValueValue} className="settings-name-textarea" >{name}</textarea>
         </div>
 
-        <div className="settings-break" ></div>
+        <div className="settings-break"></div>
 
         <div className="search-engines">
             <p className="search-engines-text" >Your current search engine is {searchEngine}</p>
@@ -189,13 +219,13 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
             </div>
         </div>
 
-        <div className="settings-break" ></div>
+        <p className="settings-section-text" >-APPERANCE-</p>
 
         <div className="darkmode">
-            <p>Select Search Bar is {selectSearchBar}</p>
+            <p>Darkmode is {darkMode}</p>
             <div className="darkmode-buttons-container">
-                <button className="darkmode-buttons" style={selectSearchBarOffStyle} onClick={turnSelectSeachBarOff} >Turn Off</button>
-                <button className="darkmode-buttons" style={selectSearchBarOnStyle} onClick={turnSelectSeachBarOn} >Turn On</button>
+                <button className="darkmode-buttons" style={darkmodeOffStyle} onClick={turnDarkmodeOff} >Turn Off</button>
+                <button className="darkmode-buttons" style={darkmodeOnStyle} onClick={turnDarkmodeOn} >Turn On</button>
             </div>
         </div>
 
@@ -216,6 +246,26 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
             <div className="darkmode-buttons-container">
                 <button className="darkmode-buttons" style={viewKeyPressOffStyle} onClick={turnViewKeyPressesOff} >Turn Off</button>
                 <button className="darkmode-buttons" style={viewKeyPressOnStyle} onClick={turnViewKeyPressesOn} >Turn On</button>
+            </div>
+        </div>
+
+        <div className="settings-break"></div>
+
+        <div className="darkmode">
+            <p>View Welcome Message is {viewWelcomeMessage}</p>
+            <div className="darkmode-buttons-container">
+                <button className="darkmode-buttons" style={viewWelcomeMessageOffStyle} onClick={turnViewWelcomeMessageOff} >Turn Off</button>
+                <button className="darkmode-buttons" style={viewWelcomeMessageOnStyle} onClick={turnViewWelcomeMessageOn} >Turn On</button>
+            </div>
+        </div>
+
+        <p className="settings-section-text" >-EXTRAS-</p>
+
+        <div className="darkmode">
+            <p>Select Search Bar is {selectSearchBar}</p>
+            <div className="darkmode-buttons-container">
+                <button className="darkmode-buttons" style={selectSearchBarOffStyle} onClick={turnSelectSeachBarOff} >Turn Off</button>
+                <button className="darkmode-buttons" style={selectSearchBarOnStyle} onClick={turnSelectSeachBarOn} >Turn On</button>
             </div>
         </div>
 

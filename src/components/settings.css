@@ -39,6 +39,15 @@ button {
     margin-top: 150px;
 }
 
+.settings-section-text {
+    color: #70757a;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: arial;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
 .darkmode {
     display: flex;
     flex-direction: column;
@@ -110,5 +119,33 @@ button {
     align-items: center;
     justify-content: center;
     color: #70757a;
+    border: 2px solid #dadce0;
+}
+
+.settings-name {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 10px;
+}
+
+.settings-name-textarea {
+    background: #f2f2f2;
+    width: 200px;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    color: #70757a;
+    outline: none;
+    resize: none;
+    padding-top: 10px;
+    padding-left: 10px;
+    border-radius: 5px;
     border: 2px solid #dadce0;
 }

@@ -14,6 +14,8 @@ function App() {
   const [viewTime, setViewTime] = useState();
   const [viewKeyPress, setViewKeyPress] = useState();
   const [searchBarHightlight, setSearchBarHightlight] = useState();
+  const [name, setName] = useState();
+  const [viewWelcomeMessage, setViewWelcomeMessage] = useState();
   const [bodyStyle, setBodyStyle] = useState({});
 
   useEffect(() => {
@@ -35,6 +37,12 @@ function App() {
     if (localStorage.getItem('searchBarHightlight') == null || localStorage.getItem('searchBarHightlight') === '') {
       localStorage.setItem('searchBarHightlight', 'off');
     }
+    if (localStorage.getItem('name') == null || localStorage.getItem('name') === '') {
+      localStorage.setItem('name', "name");
+    }
+    if (localStorage.getItem('viewWelcomeMessage') == null || localStorage.getItem('viewWelcomeMessage') === '') {
+      localStorage.setItem('viewWelcomeMessage', "off");
+    }
 
     setSearchEngine(localStorage.getItem('searchEngine'));
     setDarkMode(localStorage.getItem('darkMode'));
@@ -42,6 +50,8 @@ function App() {
     setViewTime(localStorage.getItem('viewTime'));
     setViewKeyPress(localStorage.getItem('viewKeyPress'));
     setSearchBarHightlight(localStorage.getItem('searchBarHightlight'));
+    setName(localStorage.getItem('name'));
+    setViewWelcomeMessage(localStorage.getItem('viewWelcomeMessage'));
   }, [])
 
   useEffect(() => {
@@ -74,8 +84,16 @@ function App() {
     localStorage.setItem('searchBarHightlight', searchBarHightlight);
   }, [searchBarHightlight]);
 
-  const page = CurrentWindow === 'body' ? <Body CurrentWindow={CurrentWindow} setCurrentWindow={setCurrentWindow} searchEngine={searchEngine} selectSearchBar={selectSearchBar} viewTime={viewTime} viewKeyPress={viewKeyPress} searchBarHightlight={searchBarHightlight} />
-    : CurrentWindow === 'settings' ? <Settings CurrentWindow={CurrentWindow} setCurrentWindow={setCurrentWindow} searchEngine={searchEngine} setSearchEngine={setSearchEngine} darkMode={darkMode} setDarkMode={setDarkMode} selectSearchBar={selectSearchBar} setSelectSearchBar={setSelectSearchBar} viewTime={viewTime} setViewTime={setViewTime} viewKeyPress={viewKeyPress} setViewKeyPress={setViewKeyPress} searchBarHightlight={searchBarHightlight} setSearchBarHightlight={setSearchBarHightlight} />
+  useEffect(() => {
+    localStorage.setItem('name', name);
+  }, [name]);
+
+  useEffect(() => {
+    localStorage.setItem('viewWelcomeMessage', viewWelcomeMessage);
+  }, [viewWelcomeMessage]);
+
+  const page = CurrentWindow === 'body' ? <Body CurrentWindow={CurrentWindow} setCurrentWindow={setCurrentWindow} searchEngine={searchEngine} selectSearchBar={selectSearchBar} viewTime={viewTime} viewKeyPress={viewKeyPress} searchBarHightlight={searchBarHightlight} name={name} viewWelcomeMessage={viewWelcomeMessage} />
+    : CurrentWindow === 'settings' ? <Settings CurrentWindow={CurrentWindow} setCurrentWindow={setCurrentWindow} searchEngine={searchEngine} setSearchEngine={setSearchEngine} darkMode={darkMode} setDarkMode={setDarkMode} selectSearchBar={selectSearchBar} setSelectSearchBar={setSelectSearchBar} viewTime={viewTime} setViewTime={setViewTime} viewKeyPress={viewKeyPress} setViewKeyPress={setViewKeyPress} searchBarHightlight={searchBarHightlight} setSearchBarHightlight={setSearchBarHightlight} name={name} setName={setName} viewWelcomeMessage={viewWelcomeMessage} setViewWelcomeMessage={setViewWelcomeMessage} />
       : ''
 
   return (
