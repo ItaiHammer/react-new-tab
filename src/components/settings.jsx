@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './settings.css';
 
-export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine, setSearchEngine, darkMode, setDarkMode, selectSearchBar, setSelectSearchBar, viewTime, setViewTime, viewKeyPress, setViewKeyPress, searchBarHightlight, setSearchBarHightlight, name, setName, viewWelcomeMessage, setViewWelcomeMessage, backgroundImage, setBackgroundImage}) {
+export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine, setSearchEngine, darkMode, setDarkMode, selectSearchBar, setSelectSearchBar, viewTime, setViewTime, viewKeyPress, setViewKeyPress, searchBarHightlight, setSearchBarHightlight, name, setName, viewWelcomeMessage, setViewWelcomeMessage, backgroundImage, setBackgroundImage, shadows, setShadows}) {
     //button styles
     const [darkmodeOffStyle, setDarkmodeOffStyle] = useState();
     const [darkmodeOnStyle, setDarkmodeOnStyle] = useState();
@@ -9,6 +9,8 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
     const [backgroundImageValue, setBackgroundImageValue] = useState(backgroundImage);
     const [settingsBackgroundImage, setSettingsBackgroundImage] = useState();
     const [settingsBackgroundImageStyle, setSettingsBackgroundImageStyle] = useState();
+    const [settingsShadowsOffStyle, setSettingsShadowsOffStyle] = useState();
+    const [settingsShadowsOnStyle, setSettingsShadowsOnStyle] = useState();
 
     const [googleStyle, setGoogleStyle] = useState();
     const [bingStyle, setBingStyle] = useState();
@@ -220,6 +222,24 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
         setBackgroundImage(backgroundImageValue);
     }, [backgroundImageValue]);
 
+    function turnShadowsOff () {
+        setShadows('off');
+    }
+
+    function turnShadowsOn () {
+        setShadows('on');
+    }
+
+    useEffect(()=>{
+        if (shadows === 'on') {
+            setSettingsShadowsOnStyle({background: '#dadce0'});
+            setSettingsShadowsOffStyle({background: '#F2F2F2', border: '2px solid #dadce0'});
+        }else {
+            setSettingsShadowsOnStyle({background: '#F2F2F2', border: '2px solid #dadce0'});
+            setSettingsShadowsOffStyle({background: '#dadce0'});
+        }
+    }, [shadows]);
+
     return <div className="settings" >
         <h1 className="settings-title" >SETTINGS</h1>
 
@@ -278,6 +298,16 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
         <div className="settings-break"></div>
 
         <div className="darkmode">
+            <p>View Welcome Message is {viewWelcomeMessage}</p>
+            <div className="darkmode-buttons-container">
+                <button className="darkmode-buttons" style={viewWelcomeMessageOffStyle} onClick={turnViewWelcomeMessageOff} >Turn Off</button>
+                <button className="darkmode-buttons" style={viewWelcomeMessageOnStyle} onClick={turnViewWelcomeMessageOn} >Turn On</button>
+            </div>
+        </div>
+
+        <div className="settings-break"></div>
+
+        <div className="darkmode">
             <p>View Time is {viewTime}</p>
             <div className="darkmode-buttons-container">
                 <button className="darkmode-buttons" style={viewTimeOffStyle} onClick={turnViewTimeOff} >Turn Off</button>
@@ -298,10 +328,10 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
         <div className="settings-break"></div>
 
         <div className="darkmode">
-            <p>View Welcome Message is {viewWelcomeMessage}</p>
+            <p>Shadows are {shadows}</p>
             <div className="darkmode-buttons-container">
-                <button className="darkmode-buttons" style={viewWelcomeMessageOffStyle} onClick={turnViewWelcomeMessageOff} >Turn Off</button>
-                <button className="darkmode-buttons" style={viewWelcomeMessageOnStyle} onClick={turnViewWelcomeMessageOn} >Turn On</button>
+                <button className="darkmode-buttons" style={settingsShadowsOffStyle} onClick={turnShadowsOff} >Turn Off</button>
+                <button className="darkmode-buttons" style={settingsShadowsOnStyle} onClick={turnShadowsOn} >Turn On</button>
             </div>
         </div>
 

@@ -18,6 +18,7 @@ function App() {
   const [viewWelcomeMessage, setViewWelcomeMessage] = useState();
   const [backgroundImage, setBackgroundImage] = useState();
   const [bodyStyle, setBodyStyle] = useState({});
+  const [shadows, setShadows] = useState({});
   const [backgroundImageStyle, setBackgroundImageStyle] = useState({});
 
   useEffect(() => {
@@ -48,6 +49,9 @@ function App() {
     if (localStorage.getItem('backgroundImage') == null || localStorage.getItem('backgroundImage') === '') {
       localStorage.setItem('backgroundImage', "off");
     }
+    if (localStorage.getItem('shadows') == null || localStorage.getItem('shadows') === '') {
+      localStorage.setItem('shadows', "off");
+    }
 
     setSearchEngine(localStorage.getItem('searchEngine'));
     setDarkMode(localStorage.getItem('darkMode'));
@@ -58,6 +62,7 @@ function App() {
     setName(localStorage.getItem('name'));
     setViewWelcomeMessage(localStorage.getItem('viewWelcomeMessage'));
     setBackgroundImage(localStorage.getItem('backgroundImage'));
+    setShadows(localStorage.getItem('shadows'));
   }, [])
 
   useEffect(() => {
@@ -67,10 +72,10 @@ function App() {
   useEffect(() => {
     if (darkMode === 'on') {
       setBodyStyle({ filter: 'brightness(90%) invert()' });
-      setBackgroundImageStyle({filter: 'invert() brightness(100%)'});
+      setBackgroundImageStyle({filter: 'invert() brightness(100%) contrast(70%)'});
     } else {
       setBodyStyle({ filter: 'brightness(100%)' });
-      setBackgroundImageStyle({filter: 'brightness(100%)'});
+      setBackgroundImageStyle({filter: 'brightness(100%) contrast(70%)'});
     }
 
     localStorage.setItem('darkMode', darkMode);
@@ -104,8 +109,12 @@ function App() {
     localStorage.setItem('backgroundImage', backgroundImage);
   }, [backgroundImage]);
 
-  const page = CurrentWindow === 'body' ? <Body CurrentWindow={CurrentWindow} setCurrentWindow={setCurrentWindow} searchEngine={searchEngine} selectSearchBar={selectSearchBar} viewTime={viewTime} viewKeyPress={viewKeyPress} searchBarHightlight={searchBarHightlight} name={name} viewWelcomeMessage={viewWelcomeMessage} backgroundImage={backgroundImage} />
-    : CurrentWindow === 'settings' ? <Settings CurrentWindow={CurrentWindow} setCurrentWindow={setCurrentWindow} searchEngine={searchEngine} setSearchEngine={setSearchEngine} darkMode={darkMode} setDarkMode={setDarkMode} selectSearchBar={selectSearchBar} setSelectSearchBar={setSelectSearchBar} viewTime={viewTime} setViewTime={setViewTime} viewKeyPress={viewKeyPress} setViewKeyPress={setViewKeyPress} searchBarHightlight={searchBarHightlight} setSearchBarHightlight={setSearchBarHightlight} name={name} setName={setName} viewWelcomeMessage={viewWelcomeMessage} setViewWelcomeMessage={setViewWelcomeMessage} backgroundImage={backgroundImage} setBackgroundImage={setBackgroundImage} />
+  useEffect(() => {
+    localStorage.setItem('shadows', shadows);
+  }, [shadows]);
+
+  const page = CurrentWindow === 'body' ? <Body CurrentWindow={CurrentWindow} setCurrentWindow={setCurrentWindow} searchEngine={searchEngine} darkMode={darkMode} selectSearchBar={selectSearchBar} viewTime={viewTime} viewKeyPress={viewKeyPress} searchBarHightlight={searchBarHightlight} name={name} viewWelcomeMessage={viewWelcomeMessage} backgroundImage={backgroundImage} shadows={shadows} />
+    : CurrentWindow === 'settings' ? <Settings CurrentWindow={CurrentWindow} setCurrentWindow={setCurrentWindow} searchEngine={searchEngine} setSearchEngine={setSearchEngine} darkMode={darkMode} setDarkMode={setDarkMode} selectSearchBar={selectSearchBar} setSelectSearchBar={setSelectSearchBar} viewTime={viewTime} setViewTime={setViewTime} viewKeyPress={viewKeyPress} setViewKeyPress={setViewKeyPress} searchBarHightlight={searchBarHightlight} setSearchBarHightlight={setSearchBarHightlight} name={name} setName={setName} viewWelcomeMessage={viewWelcomeMessage} setViewWelcomeMessage={setViewWelcomeMessage} backgroundImage={backgroundImage} setBackgroundImage={setBackgroundImage} shadows={shadows} setShadows={setShadows} />
       : ''
 
   return (

@@ -3,13 +3,14 @@ import './body.css';
 
 let d = new Date();
 
-export default function Body({CurrentWindow, setCurrentWindow, searchEngine, selectSearchBar, viewTime, viewKeyPress, searchBarHightlight, name, viewWelcomeMessage, backgroundImage}) {
+export default function Body({CurrentWindow, setCurrentWindow, searchEngine, darkMode, selectSearchBar, viewTime, viewKeyPress, searchBarHightlight, name, viewWelcomeMessage, backgroundImage, shadows}) {
     const [query, setQuery] = useState('');
     const [lastQuery, setlastQuery] = useState('');
     const [timeTextStyle, setTimeTextStyle] = useState({});
     const [time, setTime] = useState({});
     const [keyPressStyle, setKeyPressStyle] = useState({});
     const [viewWelcomeMessageStyle, setViewWelcomeMessageStyle] = useState({});
+    const [textShadows, setTextShadows] = useState();
 
     const textAreaRef = useRef();
     const [timeText, setTimeText] = useState();
@@ -31,7 +32,6 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, sel
         }
 
         if (newTime.minute.length < 2) {
-            console.log(newTime.minute);
             newTime.minute = `0${newTime.minute}`;
         }
 
@@ -49,16 +49,24 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, sel
             setViewWelcomeMessageStyle({display: 'flex'});
         }
 
-        console.log(backgroundImage);
-
         if (backgroundImage === 'off') {
             setBodyStyle();
         }else {
             setBodyStyle({background: 'rgba(0, 0, 0, 0)'});
         }
 
+        if (shadows === 'on') {
+            if (darkMode === 'on') {
+                setTextShadows({textShadow: '0 0 20px rgba(255, 255, 255, 0.8)'});
+            }else {
+                setTextShadows({textShadow: '0 0 20px rgba(0, 0, 0, 0.5)'});
+            }
+        }else {
+            setTextShadows({textShadow: '0 0 20px rgba(255, 255, 255, 0.0)'});
+        }
+
         setTime(newTime);
-    }, [CurrentWindow, viewTime, d, viewKeyPress, backgroundImage]);
+    }, [CurrentWindow, viewTime, d, viewKeyPress, backgroundImage, shadows, darkMode]);
 
     useEffect(() => {
         if(textAreaRef != null && selectSearchBar === 'on') textAreaRef.current.select();
@@ -106,19 +114,19 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, sel
 
     return <div className="body" style={bodyStyle} >
         <div className="welcome-message" style={viewWelcomeMessageStyle} >
-            <p className="welcome-message-text" >Hello {name}, welcome!</p>
+            <p className="welcome-message-text" style={textShadows} >Hello {name}, welcome!</p>
         </div>
         <div className="time" style={timeTextStyle} >
-            <h1 className="time-text" >{time.hour}:{time.minute}{time.timeSufix}</h1>
+            <h1 className="time-text" style={textShadows} >{time.hour}:{time.minute}{time.timeSufix}</h1>
         </div>
         <div className="search-bar-container" >
             <div className="magnifying-glass-icon" onClick={search} />
             <textarea className="search-bar" ref={textAreaRef} value={query} placeholder={'Search...'} onChange={updateQuery} onKeyPress={searchBarKeyPress} onClick={highlightSearchBar} onBlur={setTimeBlur} ></textarea>
         </div>
         <div className="current-key" style={keyPressStyle} >
-            <p className="current-key-text" >You pressed the "{lastQuery}" key</p>
+            <p className="current-key-text" style={textShadows} >You pressed the "{lastQuery}" key</p>
         </div>
 
-        <p className="bottom-watermark" >Using {searchEngine}</p>
+        <p className="bottom-watermark" style={textShadows} >Using {searchEngine}</p>
     </div>
 }
