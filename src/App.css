@@ -10,6 +10,11 @@
     border-radius: 10px;
 }
 
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
 body::-webkit-scrollbar {
     display: none;
 }
