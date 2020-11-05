@@ -39,7 +39,7 @@ function App() {
       localStorage.setItem('viewKeyPress', 'off');
     }
     if (localStorage.getItem('searchBarHightlight') == null || localStorage.getItem('searchBarHightlight') === '') {
-      localStorage.setItem('searchBarHightlight', 'off');
+      localStorage.setItem('searchBarHightlight', 'on');
     }
     if (localStorage.getItem('name') == null || localStorage.getItem('name') === '') {
       localStorage.setItem('name', "name");
@@ -77,10 +77,10 @@ function App() {
   useEffect(() => {
     if (darkMode === 'on') {
       setBodyStyle({ filter: 'brightness(90%) invert()' });
-      setBackgroundImageStyle({filter: 'invert() brightness(100%) contrast(70%)'});
+      setBackgroundImageStyle({filter: 'invert() brightness(100%) contrast(100%)'});
     } else {
       setBodyStyle({ filter: 'brightness(100%)' });
-      setBackgroundImageStyle({filter: 'brightness(100%) contrast(70%)'});
+      setBackgroundImageStyle({filter: 'brightness(100%) contrast(100%)'});
     }
 
     localStorage.setItem('darkMode', darkMode);

@@ -87,7 +87,7 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
             setSettingsCenterPicture(<img className="settings-background-image-preview" draggable="false" style={settingsBackgroundImageStyle} src={centerPicture} />); 
         }
 
-    }, [searchEngine, backgroundImage, centerPicture, darkMode]);
+    }, [searchEngine, CurrentWindow, backgroundImage, centerPicture, darkMode]);
 
     function setSearchEngineGoogle () {
         setSearchEngine('Google');
@@ -353,7 +353,7 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
             <p>Center Picture is:</p>
             <div className="settings-background-image-buttons-container">
                 <button onClick={turnCenterPictureOff} >Turn Off</button>
-                <textarea value={centerPicture} onChange={setCenterPictureValue} placeholder="Link to Picture" onKeyPress={disableEnter} onBlur={setBlurFunction} onClick={highlightSearchBar} className="settings-name-textarea" >{centerPicture}</textarea>
+                <textarea value={centerPicture} onChange={setCenterPictureValue} placeholder="Link to Picture" onKeyPress={disableEnter} onBlur={setBlurFunction} onClick={highlightSearchBar} className="settings-name-textarea" style={settingsCenterPictureStyle} >{centerPicture}</textarea>
             </div>
             {settingsCenterPicture}
         </div>
