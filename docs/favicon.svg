@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 2000 2000" style="enable-background:new 0 0 2000 2000;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#9AA0A6;animation: mymove 6s infinite;transform-origin: center;}
+
+	@keyframes mymove {
+		0% {transform: rotate(0deg)}
+		50% {transform: rotate(360deg)}
+		100% {transform: rotate(360deg)}
+	}
+</style>
+<path class="st0" d="M1274.5,1067.5l468,468c0,0,81,75,0,188s-216,15-216,15L1063,1275L1274.5,1067.5z"/>
+<path class="st0" d="M1358.5,791c0,317.56-257.44,575-575,575s-575-257.44-575-575s257.44-575,575-575S1358.5,473.44,1358.5,791z
+	 M781,376c-228.09,0-413,184.91-413,413s184.91,413,413,413s413-184.91,413-413S1009.09,376,781,376z"/>
+</svg>
