@@ -113,6 +113,8 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, dar
                 window.location = 'https://www.duckduckgo.com/?q='+query; //DuckDuckGo search
             }else if (searchEngine === 'Yahoo') {
                 window.location = 'https://search.yahoo.com/search?q='+query; //Yahoo search
+            }else if (searchEngine === 'Ecosia') {
+                window.location = 'https://www.ecosia.org/search?q='+query; //Ecosia search
             }else {
                 window.location = 'https://www.google.com/search?q='+query; //Google search
             }

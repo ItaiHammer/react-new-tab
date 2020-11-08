@@ -18,6 +18,7 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
     const [bingStyle, setBingStyle] = useState();
     const [duckDuckGoStyle, setDuckDuckGoStyle] = useState();
     const [yahooStyle, setYahooStyle] = useState();
+    const [ecosiaStyle, setEcosiaStyle] = useState();
 
     const [selectSearchBarOffStyle, setselectSearchBarOffStyle] = useState();
     const [selectSearchBarOnStyle, setselectSearchBarOnStyle] = useState();
@@ -63,6 +64,12 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
             setYahooStyle({background: '#F2F2F2', border: '2px solid #dadce0'});
         }
 
+        if (searchEngine === 'Ecosia') {
+            setEcosiaStyle({background: '#dadce0'});
+        }else {
+            setEcosiaStyle({background: '#F2F2F2', border: '2px solid #dadce0'});
+        }
+
         if (darkMode === 'on') {
             setSettingsBackgroundImageStyle({filter: 'invert() brightness(100%)'});
         }else {
@@ -103,6 +110,10 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
 
     function setSearchEngineYahoo () {
         setSearchEngine('Yahoo');
+    }
+
+    function setSearchEngineEcosia () {
+        setSearchEngine('Ecosia');
     }
 
     function turnDarkmodeOn () {
@@ -312,6 +323,10 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
                 <button className="search-engines-buttons" style={yahooStyle} onClick={setSearchEngineYahoo} >
                     <img src="" draggable="false" />
                     Yahoo!
+                </button>
+                <button className="search-engines-buttons" style={ecosiaStyle} onClick={setSearchEngineEcosia} >
+                    <img src="" draggable="false" />
+                    Ecosia
                 </button>
             </div>
         </div>
