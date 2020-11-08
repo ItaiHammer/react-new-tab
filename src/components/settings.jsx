@@ -350,7 +350,7 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
         <div className="settings-break"></div>
 
         <div className="settings-background-image">
-            <p>Center Picture is:</p>
+            <p>Icon is:</p>
             <div className="settings-background-image-buttons-container">
                 <button onClick={turnCenterPictureOff} >Turn Off</button>
                 <textarea value={centerPicture} onChange={setCenterPictureValue} placeholder="Link to Picture" onKeyPress={disableEnter} onBlur={setBlurFunction} onClick={highlightSearchBar} className="settings-name-textarea" style={settingsCenterPictureStyle} >{centerPicture}</textarea>
@@ -364,7 +364,7 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
             <p>View Time is {viewTime}</p>
             <div className="darkmode-buttons-container">
                 <button className="darkmode-buttons" style={viewTimeOffStyle} onClick={turnViewTimeOff} >Turn Off</button>
-                <button className="darkmode-buttons" style={viewTimeOnStyle} onClick={turnViewTimeOn} >Time</button>
+                <button className="darkmode-buttons" style={viewTimeOnStyle} onClick={turnViewTimeOn} >Turn On</button>
             </div>
         </div>
 

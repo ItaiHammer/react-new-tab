@@ -25,14 +25,17 @@ export default function Body({CurrentWindow, setCurrentWindow, searchEngine, dar
             timeSufix: 'PM'
         }
 
-        if (newTime.hour > 12) {
+        if (newTime.hour === 0) {
+            newTime.hour = 12;
+            newTime.timeSufix = 'AM';
+        }else if (newTime.hour > 12) {
             newTime.hour -= 12;
             newTime.timeSufix = 'PM';
         } else {
             newTime.timeSufix = 'AM';
         }
 
-        if (newTime.minute.length < 2) {
+        if (newTime.minute.toString().length < 2) {
             newTime.minute = `0${newTime.minute}`;
         }
 
