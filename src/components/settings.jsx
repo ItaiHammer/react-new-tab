@@ -83,9 +83,9 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
         }
 
         if (darkMode === 'on') {
-            setSettingsCenterPictureStyle({filter: 'invert() brightness(100%)'});
-        }else {
             setSettingsCenterPictureStyle({filter: 'brightness(100%)'});
+        }else {
+            setSettingsCenterPictureStyle({filter: 'invert() brightness(100%)'});
         }
 
         if (centerPicture === 'off') {
