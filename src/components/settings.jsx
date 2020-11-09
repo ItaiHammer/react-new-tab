@@ -79,7 +79,7 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
         if (backgroundImage === 'off') {
             setSettingsBackgroundImage(<p></p>);
         }else {
-            setSettingsBackgroundImage(<img className="settings-background-image-preview" draggable="false" style={settingsBackgroundImageStyle} src={backgroundImage} />); 
+            setSettingsBackgroundImage(<img className="settings-background-image-preview" draggable="false" style={settingsCenterPictureStyle} src={backgroundImage} />); 
         }
 
         if (darkMode === 'on') {
@@ -91,7 +91,7 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
         if (centerPicture === 'off') {
             setSettingsCenterPicture(<p></p>);
         }else {
-            setSettingsCenterPicture(<img className="settings-background-image-preview" draggable="false" style={settingsBackgroundImageStyle} src={centerPicture} />); 
+            setSettingsCenterPicture(<img className="settings-background-image-preview" draggable="false" style={settingsCenterPictureStyle} src={centerPicture} />); 
         }
 
     }, [searchEngine, CurrentWindow, backgroundImage, centerPicture, darkMode]);
@@ -368,7 +368,7 @@ export default function Settings ({CurrentWindow, setCurrentWindow, searchEngine
             <p>Icon is:</p>
             <div className="settings-background-image-buttons-container">
                 <button onClick={turnCenterPictureOff} >Turn Off</button>
-                <textarea value={centerPicture} onChange={setCenterPictureValue} placeholder="Link to Picture" onKeyPress={disableEnter} onBlur={setBlurFunction} onClick={highlightSearchBar} className="settings-name-textarea" style={settingsCenterPictureStyle} >{centerPicture}</textarea>
+                <textarea value={centerPicture} onChange={setCenterPictureValue} placeholder="Link to Picture" onKeyPress={disableEnter} onBlur={setBlurFunction} onClick={highlightSearchBar} className="settings-name-textarea" >{centerPicture}</textarea>
             </div>
             {settingsCenterPicture}
         </div>
